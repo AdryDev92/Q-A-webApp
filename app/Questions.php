@@ -11,14 +11,20 @@ class Questions extends Model
         'title',
         'content',
         'category',
-        'hashtag'
+        'hashtag',
+        'slug'
     ];
 
 
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
      */
-    public function hasUser(){
-        return $this->hasOne(User::class);
+    public function belongsToUser(){
+        return $this->belongsTo(User::class);
     }
 }

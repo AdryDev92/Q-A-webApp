@@ -18,6 +18,8 @@ class CreateQuestionTable extends Migration
             $table->string('title');
             $table->text('content');
             $table->string('category');
+            $table->string('hashtag')->nullable();
+            $table->string('slug');
             $table->timestamps();
         });
     }

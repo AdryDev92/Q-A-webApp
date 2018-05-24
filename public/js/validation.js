@@ -78,9 +78,14 @@ module.exports = __webpack_require__(45);
 
 $(function () {
     $('#send').on("click", validateAll);
-    $('#name').on("change", validateName);
-    $('#age').on("change", validateAge);
+    $('#title').on("change", validarTitulo);
+    $('#category').on("change", validarCategoria);
+    $('#content').on("change", validarContenido);
+    $('#cargar').on("click", cargarDatos);
+    $('#cargarUno').on("click", cargarDatosUno);
 });
+
+var cont = 0;
 
 function validateAll(e) {
 
@@ -88,10 +93,11 @@ function validateAll(e) {
     var button = $('button');
     button.prop("disabled", true);
 
-    var nombreCorrecto = validateName();
-    var edadCorrecta = validateAge();
+    var tituloCorrecto = validarTitulo();
+    var categoriaCorrecta = validarCategoria();
+    var contenidoCorrecto = validarContenido();
 
-    if (nombreCorrecto && edadCorrecta) {
+    if (tituloCorrecto && categoriaCorrecta && contenidoCorrecto) {
         $('#formulario').submit();
     }
 
@@ -99,7 +105,7 @@ function validateAll(e) {
 }
 
 function validateName() {
-
+    var esCorrecto = false;
     var regex = /[a-zA-Z]+/;
     var name = $('#name').val();
     var input = $('#name');
@@ -115,11 +121,14 @@ function validateName() {
         input.removeClass("is-invalid");
         error.html("");
         input.addClass("is-valid");
+        esCorrecto = true;
     }
+    return esCorrecto;
 }
 
 function validateAge() {
 
+    var esCorrecto = false;
     var edad = $('#age').val();
     var error = $('#errorAge');
     var regex = /[0-9]+/;
@@ -127,6 +136,7 @@ function validateAge() {
     if (edad.match(regex) >= 18) {
         error.html("");
         edad.addClass("valido");
+        esCorrecto = true;
     } else {
         edad.removeClass("valido");
         edad.addClass('error');
@@ -140,6 +150,7 @@ function validateNick() {
     var nick = $('#nick').val();
     var input = $('#nick');
     var error = $('#errorNick');
+    var esCorrecto = false;
 
     if (!nick.match(regex) || nick === "" || nick.length < 4) {
         error.removeClass("is-valid");
@@ -151,12 +162,159 @@ function validateNick() {
         input.removeClass("is-invalid");
         error.html("");
         input.addClass("is-valid");
+        esCorrecto = true;
     }
 }
 
 function validateEmail() {
     var email = $('#email');
     var error = $('#errorEmail');
+}
+
+function validar(campo) {
+
+    var datos = {};
+    datos[campo] = $("#" + campo).val();
+
+    axios.post('/questions/validate', datos).then(function (response) {
+        gestionarErrores($("#" + campo), response.data[campo]);
+    }).catch(function (error) {
+        console.log(error);
+    });
+}
+
+function validarTitulo() {
+    validar("title");
+}
+
+function validarCategoria() {
+    validar("category");
+}
+
+function validarContenido() {
+    validar("content");
+}
+
+function gestionarErrores(inputQueSeValida, listaErrores) {
+    var hayErrores = false;
+    var divErrores = inputQueSeValida.next("div");
+    divErrores.html("");
+    inputQueSeValida.removeClass("is-valid is-invalid");
+
+    if (listaErrores.length === 0) {
+        input.addClass("is-valid");
+    } else {
+        hayErrores = true;
+        inputQueSeValida.addClass("is-invalid");
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
+
+        try {
+            for (var _iterator = listaErrores[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                var error = _step.value;
+
+                divErrores.append('<div class="alert alert-danger" role="alert">' + error + '</div>');
+            }
+        } catch (err) {
+            _didIteratorError = true;
+            _iteratorError = err;
+        } finally {
+            try {
+                if (!_iteratorNormalCompletion && _iterator.return) {
+                    _iterator.return();
+                }
+            } finally {
+                if (_didIteratorError) {
+                    throw _iteratorError;
+                }
+            }
+        }
+    }
+
+    return hayErrores;
+}
+
+function incluirSpinner(input) {
+    if (input.parent().next().length === 0) {
+        var spin = $(".spinner").first().clone(true);
+        input.parent().after(spin);
+        spin.show();
+    }
+}
+
+function ocultarSpinner() {
+    $("#" + campo).parent().next().remove();
+}
+
+function cargarDatos() {
+
+    var resp = $("#listadoQuestion");
+
+    axios.get('/questions/obtenerDatos', {}).then(function (response) {
+        mostrarRespuesta(response, resp);
+    }).catch(function (error) {
+        console.log(error);
+    });
+}
+
+//cuando se usan parametros, lo formal es hacer la peticion por POST
+function cargarDatosUno() {
+
+    var resp = $("#listadoQuestion");
+    axios.post('/questions/obtenerCadaDato', {
+        posicionInicial: cont,
+        numeroElementos: 1
+    }).then(function (response) {
+        mostrarRespuesta(response, resp);
+        cont++;
+    }).catch(function (error) {
+        console.log(error);
+    });
+}
+
+function buildElement(elemento) {
+    var div = $("<div></div>");
+    div.addClass("card");
+
+    var divHeader = $('<div></div>');
+    divHeader.addClass("card-header");
+    var h2 = $("<h2></h2>");
+    var a = $("<a></a>");
+    var p = $("<p></p>");
+    var p2 = $("<p></p>");
+    var em = $("<em></em>");
+    var pContent = $("<p></p>");
+
+    h2.addClass("card-title");
+    p.addClass("card-subtitle");
+    p2.addClass("card-subtitle");
+    pContent.addClass("card-body");
+
+    a.text(elemento.title);
+    p.text(elemento.category);
+    p2.text(elemento.hashtag);
+    pContent.text(elemento.content);
+
+    h2.append(a);
+    divHeader.append(h2);
+    p.append(em);
+    divHeader.append(p);
+    divHeader.append(p2);
+    div.append(divHeader);
+    div.append(pContent);
+    return div;
+}
+
+function mostrarRespuesta(response, resp) {
+    var datos = response.data;
+    for (var item in response.data) {
+        var elemento = datos[item];
+
+        var div = buildElement(elemento);
+
+        resp.append(div);
+    }
 }
 
 /***/ })

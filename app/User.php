@@ -27,8 +27,11 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function hasQuestion(){
-        return $this->belongsTo(Questions::class);
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function hasManyQuestions(){
+        return $this->hasMany(Questions::class);
 
     }
 }

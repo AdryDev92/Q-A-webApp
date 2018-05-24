@@ -12,10 +12,7 @@
 */
 
 
-Route::get('/', function () {
-    return view('home');
-});
-
+Route::get('/', 'HomeController@index')->name('home');
 
 Auth::routes();
 
@@ -24,13 +21,16 @@ Route::group(['middleware' => 'auth'], function(){
 
 Route::get('/questions/create','QuestionsController@create')->name("crearPregunta");
 Route::post('/questions/create', 'QuestionsController@store');
+Route::get('/questions/load_data','QuestionsController@cargarDatos');
+Route::get('/questions/obtenerDatos', 'QuestionsController@obtenerDatosAjax');
+Route::post('/questions/obtenerCadaDato', 'QuestionsController@obtenerDatosAjaxCadaUno');
 Route::get('/questions/{question}', 'QuestionsController@show');
 
 Route::get('/users/{user}', 'UserController@show')->name("profile");
 
 });
 
+Route::post('/questions/validate','QuestionsController@validarAjax');
 Route::get('/questions','QuestionsController@show');
-Route::get('/home', 'HomeController@index')->name('home');
 
 

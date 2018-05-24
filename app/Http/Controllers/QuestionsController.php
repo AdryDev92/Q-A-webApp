@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateQuestionsRequest;
+use App\Http\Requests\QuestionAjaxFormRequest;
 use App\Questions;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Symfony\Component\Console\Question\Question;
 
 class QuestionsController extends Controller
 {
@@ -16,7 +19,8 @@ class QuestionsController extends Controller
     public function index()
     {
         $questions = Questions::latest()->paginate(10);
-        return view('views.home',compact('questions'));
+
+        return view('home',compact('questions'));
     }
 
     /**
@@ -36,8 +40,8 @@ class QuestionsController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function validarAjax(){
-
+    public function validarAjax(QuestionAjaxFormRequest $request){
+        return array();
     }
 
     public function store(CreateQuestionsRequest $request)
@@ -49,6 +53,8 @@ class QuestionsController extends Controller
             'content' => \request('content'),
             'hashtag' => \request('hashtag')
         ]);
+
+        return redirect('home');
     }
 
     /**
@@ -65,12 +71,17 @@ class QuestionsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Questions  $questions
-     * @return \Illuminate\Http\Response
+     * @param  \App\Questions $questions
+     * @return void
      */
     public function edit(Questions $questions)
     {
         //
+    }
+
+    public function cargarDatos()
+    {
+        return view('questions.load_data');
     }
 
     /**
@@ -83,6 +94,24 @@ class QuestionsController extends Controller
     public function update(Request $request, Questions $questions)
     {
         //
+    }
+
+
+    public function obtenerDatosAjax()
+    {
+        $questions = Questions::all();
+        return $questions;
+    }
+
+    public function obtenerDatosAjaxCadaUno(Request $request)
+    {
+        $posicionInicial = $request->get("posicionInicial");
+        $numElemtos = $request->get("numeroElementos");
+        $questions = DB::table("questions")
+            ->offset($posicionInicial)
+            ->limit($numElemtos)
+            ->get();
+        return $questions;
     }
 
     /**

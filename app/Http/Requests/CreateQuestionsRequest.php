@@ -24,36 +24,67 @@ class CreateQuestionsRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => [
-                'required', 'max: 80', 'min: 4'
-            ],
-            'content' => [
-                'required', 'max: 500'
-            ],
-            'category' => [
-                'required'
-            ],
-            'hashtag' => [
-                'required'
-            ]
-
+            'title' => $this->validarTitulo(),
+            'content' => $this->validarContenido(),
+            'category' => $this->validarCategoria()
         ];
     }
+
 
     public function messages()
     {
-        return [
-            'title.required' => 'Por favor, introduce un título válido',
-            'title.max' => 'El número máximo de caracteres es 80',
-            'title.min' => 'El número minimo de caracteres es 4',
-            'content.required' => 'El contenido es inválido',
-            'content.max' => 'El número máximo de caracteres es 500',
-            'category.required' => 'Por favor, selecciona una categoría'
-        ];
+        $mensajesTitulo = $this->mensajesTitulo();
+        $mensajesCategoria = $this->mensajesCategoria();
+        $mensajesContenido = $this->mensajesContenido();
+        $mensajes = array_merge(
+            $mensajesTitulo,
+            $mensajesCategoria,
+            $mensajesContenido
+        );
+        return $mensajes;
     }
 
-    public function validarTitulo(){
+
+    protected function validarTitulo(){
         return 'required|string|min:15|max:200';
+    }
+
+    protected function mensajesTitulo()
+    {
+        $mensajes = array();
+        $mensajes['title.required'] = 'Por favor, escribe un título válido';
+        $mensajes['title.max'] = 'El número máximo de caracteres es 200';
+        $mensajes['title.min'] = 'El número mínimo de caracteres es 15';
+        $mensajes['title.string'] = 'El formato no es válido';
+
+        return $mensajes;
+    }
+
+
+    protected function validarCategoria(){
+        return 'required';
+    }
+
+    protected function mensajesCategoria()
+    {
+        $mensajes = array();
+        $mensajes['category.required'] = 'Por favor, selecciona una categoría válida';
+        return $mensajes;
+    }
+
+
+    protected function validarContenido(){
+        return 'required|min:15|string|max:500';
+    }
+
+    protected function mensajesContenido()
+    {
+        $mensajes = array();
+        $mensajes['content.required'] = 'El contenido es erróneo';
+        $mensajes['content.max'] = 'El número máximo de caracteres es 200';
+        $mensajes['content.min'] = 'El número mínimo de caracteres es 15';
+        $mensajes['content.string'] = 'El formato no es válido';
+        return $mensajes;
     }
 
 

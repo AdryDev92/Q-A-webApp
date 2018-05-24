@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\JsonResponse;
+use \Illuminate\Validation\ValidationException;
 
 class QuestionAjaxFormRequest extends CreateQuestionsRequest
 {
@@ -13,7 +15,7 @@ class QuestionAjaxFormRequest extends CreateQuestionsRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,12 +27,16 @@ class QuestionAjaxFormRequest extends CreateQuestionsRequest
     {
         $rules = array();
 
-        if($this->exists('name')){
-            $rules['name'] = $this->validarNombre();
+        if($this->exists('title')){
+            $rules['title'] = $this->validarTitulo();
         }
 
-        if($this->exists('email')) {
-            $rules['email'] = $this->validarEmail();
+        if($this->exists('category')) {
+            $rules['category'] = $this->validarCategoria();
+        }
+
+        if($this->exists('content')) {
+            $rules['content'] = $this->validarContenido();
         }
 
         return $rules;
