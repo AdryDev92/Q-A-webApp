@@ -8,6 +8,7 @@ class Questions extends Model
 {
     protected $table = 'questions';
     protected $fillable = [
+        'user_id',
         'title',
         'content',
         'category',

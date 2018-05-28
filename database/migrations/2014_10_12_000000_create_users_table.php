@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('slug')->unique();
             $table->rememberToken();
             $table->timestamps();
+
         });
     }
 

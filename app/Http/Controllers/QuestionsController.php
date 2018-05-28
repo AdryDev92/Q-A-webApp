@@ -6,6 +6,7 @@ use App\Http\Requests\CreateQuestionsRequest;
 use App\Http\Requests\QuestionAjaxFormRequest;
 use App\Questions;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\Console\Question\Question;
 
@@ -48,13 +49,14 @@ class QuestionsController extends Controller
     {
         Questions::create([
             'title' => \request('title'),
+            'user_id' => Auth::user()->id,
             'slug' => str_slug(\request('title')),
             'category' => \request('category'),
             'content' => \request('content'),
             'hashtag' => \request('hashtag')
         ]);
 
-        return redirect('home');
+        return redirect('/');
     }
 
     /**

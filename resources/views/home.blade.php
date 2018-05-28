@@ -20,5 +20,9 @@
                 <p class="card-body">{{$question->content}}</p>
             </div>
         @endforeach
+
+            <nav aria-label="Page navigation example">
+                {{ $questions->links() }}
+            </nav>
     </div>
 @endsection

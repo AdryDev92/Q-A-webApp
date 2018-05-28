@@ -8,6 +8,7 @@ $factory->define(App\Questions::class, function (Faker $faker) {
     $slug = str_slug($title);
 
     return [
+        'user_id' => $faker->numberBetween($min=1,$max=5),
         'title' => $title,
         'slug' => $slug,
         'category' => $faker->word,
