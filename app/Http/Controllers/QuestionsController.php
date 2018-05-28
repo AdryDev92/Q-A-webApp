@@ -106,10 +106,10 @@ class QuestionsController extends Controller
     public function obtenerDatosAjaxCadaUno(Request $request)
     {
         $posicionInicial = $request->get("posicionInicial");
-        $numElemtos = $request->get("numeroElementos");
+        $numElementos = $request->get("numeroElementos");
         $questions = DB::table("questions")
             ->offset($posicionInicial)
-            ->limit($numElemtos)
+            ->limit($numElementos)
             ->get();
         return $questions;
     }
