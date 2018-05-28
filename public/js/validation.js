@@ -83,6 +83,7 @@ $(function () {
     $('#content').on("change", validarContenido);
     $('#cargar').on("click", cargarDatos);
     $('#cargarUno').on("click", cargarDatosUno);
+    $('#cargarVista').on("click", cargarVistaUno);
 });
 
 var cont = 0;
@@ -231,7 +232,6 @@ function gestionarErrores(inputQueSeValida, listaErrores) {
             }
         }
     }
-
     return hayErrores;
 }
 
@@ -273,7 +273,20 @@ function cargarDatosUno() {
     });
 }
 
+function cargarVistaUno() {
+    axios.post('/questions/vistaPregunta', {
+        posicionInicial: cont,
+        numeroElementos: 1
+    }).then(function (response) {
+        $('#listadoQuestion').append(response.data);
+        cont++;
+    }).catch(function (error) {
+        console.log(error);
+    });
+}
+
 function buildElement(elemento) {
+
     var div = $("<div></div>");
     div.addClass("card");
 
@@ -303,6 +316,7 @@ function buildElement(elemento) {
     divHeader.append(p2);
     div.append(divHeader);
     div.append(pContent);
+
     return div;
 }
 
@@ -310,9 +324,7 @@ function mostrarRespuesta(response, resp) {
     var datos = response.data;
     for (var item in response.data) {
         var elemento = datos[item];
-
         var div = buildElement(elemento);
-
         resp.append(div);
     }
 }

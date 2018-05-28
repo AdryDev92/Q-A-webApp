@@ -116,6 +116,20 @@ class QuestionsController extends Controller
         return $questions;
     }
 
+    public function cargarVista(Request $request){
+        $posicionInicial = $request->get("posicionInicial");
+        $numElementos = $request->get("numeroElementos");
+        $questions = DB::table("questions")
+            ->offset($posicionInicial)
+            ->limit($numElementos)
+            ->get();
+
+        $vista = view('questions.viewQuestion', ['questions' => $questions]);
+
+        return $vista;
+
+    }
+
     /**
      * Remove the specified resource from storage.
      *

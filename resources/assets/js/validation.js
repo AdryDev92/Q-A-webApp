@@ -5,6 +5,7 @@ $(function () {
     $('#content').on("change", validarContenido);
     $('#cargar').on("click", cargarDatos);
     $('#cargarUno').on("click", cargarDatosUno);
+    $('#cargarVista').on("click",cargarVistaUno)
 
 });
 
@@ -175,6 +176,20 @@ function cargarDatosUno() {
         }
     ).then(function (response) {
         mostrarRespuesta(response, resp);
+        cont++;
+    }).catch(function (error) {
+        console.log(error);
+    });
+}
+
+function cargarVistaUno(){
+    axios.post('/questions/vistaPregunta',
+        {
+            posicionInicial: cont,
+            numeroElementos: 1
+        }
+    ).then(function (response) {
+       $('#listadoQuestion').append(response.data);
         cont++;
     }).catch(function (error) {
         console.log(error);

@@ -7,6 +7,7 @@
     <div class="container">
         <button class="btn btn-primary" id="cargar">Cargar datos</button>
         <button class="btn btn-primary" id="cargarUno">Cargar cada uno</button>
+        <button class="btn btn-primary" id="cargarVista">Cargar vista</button>
     </div>
 
     <div id="listadoQuestion">

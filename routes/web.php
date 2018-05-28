@@ -24,6 +24,7 @@ Route::post('/questions/create', 'QuestionsController@store');
 Route::get('/questions/load_data','QuestionsController@cargarDatos');
 Route::get('/questions/obtenerDatos', 'QuestionsController@obtenerDatosAjax');
 Route::post('/questions/obtenerCadaDato', 'QuestionsController@obtenerDatosAjaxCadaUno');
+Route::post('/questions/vistaPregunta','QuestionsController@cargarVista');
 Route::get('/questions/{question}', 'QuestionsController@show');
 
 Route::get('/users/{user}', 'UserController@show')->name("profile");
