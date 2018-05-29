@@ -54,7 +54,7 @@
 
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a href="{{route('crearPregunta')}}" class="dropdown-item">Crear pregunta</a>
-                                    <a href="{{url('profile')}}" class="dropdown-item">Perfil</a>
+                                    <a href="{{url('/users/{users}')}}" class="dropdown-item">Perfil</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
