@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h1 style="margin-bottom: 1em">
+        <h1>
             Bienvenido al lugar donde encontrarás respuesta a todas tus preguntas
         </h1>
     </div>

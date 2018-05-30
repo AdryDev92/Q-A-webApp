@@ -19,16 +19,18 @@ Auth::routes();
 //Rutas que se ven cuando estas logeado
 Route::group(['middleware' => 'auth'], function(){
 
-Route::get('/questions/create','QuestionsController@create')->name("crearPregunta");
-Route::post('/questions/create', 'QuestionsController@store');
-Route::get('/questions/load_data','QuestionsController@cargarDatos');
-Route::get('/questions/obtenerDatos', 'QuestionsController@obtenerDatosAjax');
-Route::post('/questions/obtenerCadaDato', 'QuestionsController@obtenerDatosAjaxCadaUno');
-Route::post('/questions/vistaPregunta','QuestionsController@cargarVista');
-Route::get('/questions/{question}', 'QuestionsController@show');
+    Route::get('/questions/create','QuestionsController@create')->name("crearPregunta");
+    Route::post('/questions/create', 'QuestionsController@store');
 
-Route::get('/users/{user}', 'UserController@show')->name("profile");
+    Route::get('/questions/load_data','QuestionsController@cargarDatos');
+    Route::get('/questions/obtenerDatos', 'QuestionsController@obtenerDatosAjax');
+    Route::post('/questions/obtenerCadaDato', 'QuestionsController@obtenerDatosAjaxCadaUno');
+    Route::post('/questions/vistaPregunta','QuestionsController@cargarVista');
 
+    Route::get('/questions/{question}', 'QuestionsController@show');
+
+    Route::get('/user/{user}', 'UserController@show')->name("profile");
+    Route::post('/questions/destroy/{id}', 'QuestionsController@destroy');
 });
 
 Route::post('/questions/validate','QuestionsController@validarAjax');

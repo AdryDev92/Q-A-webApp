@@ -5,7 +5,8 @@ $(function () {
     $('#content').on("change", validarContenido);
     $('#cargar').on("click", cargarDatos);
     $('#cargarUno').on("click", cargarDatosUno);
-    $('#cargarVista').on("click",cargarVistaUno)
+    $('#cargarVista').on("click",cargarVistaUno);
+    $('button[data-type="delete"]').on("click", deleteElement);
 
 });
 
@@ -238,4 +239,24 @@ function mostrarRespuesta(response, resp) {
         let div = buildElement(elemento);
         resp.append(div);
     }
+}
+
+function deleteElement(evento){
+    let boton = evento.target;
+    let idElemento = boton.getAttribute('data-idElement');
+    //mostar el modal
+    /*axios.post('/questions/destroy/'+idElemento,
+        {
+
+        }
+    ).then(function (response) {
+       if (response.data === 1){
+           alert("TODO OK");
+       } else {
+           alert("MAL");
+       }
+
+    }).catch(function (error) {
+        alert("ERROR AL BORRAR");
+    });*/
 }

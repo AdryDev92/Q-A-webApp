@@ -1,24 +1,21 @@
 @extends('layouts.app')
 
+@push('scripts')
+    <script src="{{ asset('js/validation.js') }}" defer></script>
+@endpush
+
 @section('content')
-
     <div class="container">
-        <h1>Menú de {{ Auth::user()->nick }}</h1>
-
-        <div class="card" style="width: 18rem;">
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">Preguntas</li>
-                <li class="list-group-item">Media</li>
-                <li class="list-group-item">Configuración</li>
-            </ul>
+        <h1>Perfil de {{ Auth::user()->nick }}</h1>
+        <span class="col-1"></span>
+        <div class="row">
+            <div class="col-3">
+                @include('users.aside_menu_nav')
+            </div>
+            <div class="col-9">
+                @include('users.postList')
+            </div>
         </div>
 
-        <div class="card" style="width: 18rem;">
-            <ul class="list-group list-group-flush">
-                @foreach($questions as $question)
-                    <li class="list-group-item">{{$question->id}}</li>
-                @endforeach
-            </ul>
-        </div>
     </div>
 @endsection

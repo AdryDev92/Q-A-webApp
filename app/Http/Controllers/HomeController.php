@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Questions;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -25,7 +26,8 @@ class HomeController extends Controller
     public function index()
     {
         $questions = Questions::latest()->paginate(10);
+        $user = Auth::user();
 
-        return view('home',compact('questions'));
+        return view('home',compact('questions','user'));
     }
 }

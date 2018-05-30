@@ -2,11 +2,15 @@
 
 namespace Tests\Feature;
 
+use App\User;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ExampleTest extends TestCase
 {
+
+    use DatabaseTransactions;
     /**
      * A basic test example.
      *
@@ -17,6 +21,47 @@ class ExampleTest extends TestCase
         $response = $this->get('/');
 
         $response->assertStatus(200);
-        $response->assertSee("Trotamundog");
+        $response->assertSee("Questions&amp;Answers");
+
     }
+
+    public function testRouteCreate(){
+
+        $user = User::find(1);
+
+        //user not logged
+        $response = $this->get('/questions/create');
+        $response->assertStatus(302);
+
+        //user logged
+        $response = $this->actingAs($user)->get('/questions/create');
+        $response->assertStatus(200);
+
+    }
+
+    public function testViewHome(){
+        $user = User::find(1);
+
+        //user not logged
+        $response = $this->get('/');
+        $response->assertStatus(200);
+
+        //user logged
+        $response = $this->actingAs($user)->get('/');
+        $response->assertStatus(200);
+    }
+
+    public function testViewProfile(){
+        $user = User::find(1);
+
+        //user not logged
+        $response = $this->get('/user/'.$user->slug);
+        $response->assertStatus(302);
+
+        //user logged
+        $response = $this->actingAs($user)->get('/user/'.$user->slug);
+        $response->assertStatus(200);
+
+    }
+
 }

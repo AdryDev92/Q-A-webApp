@@ -130,14 +130,12 @@ class QuestionsController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Questions  $questions
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Questions $questions)
+    public function destroy()
     {
-        //
+        $id = $_REQUEST['id'];
+
+        Questions::destroy($id);
+
+        return 1;
     }
 }

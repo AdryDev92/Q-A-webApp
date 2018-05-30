@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Questions;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -47,10 +48,12 @@ class UserController extends Controller
     public function show($slug)
     {
         $user = User::where('slug', $slug)->get();
+        $questions = Questions::all();
 
         return view('users.profile',
             [
-                'profile' => $user
+                'profile' => $user,
+                'questions' => $questions
             ]);
 
     }

@@ -84,6 +84,7 @@ $(function () {
     $('#cargar').on("click", cargarDatos);
     $('#cargarUno').on("click", cargarDatosUno);
     $('#cargarVista').on("click", cargarVistaUno);
+    $('button[data-type="delete"]').on("click", deleteElement);
 });
 
 var cont = 0;
@@ -327,6 +328,20 @@ function mostrarRespuesta(response, resp) {
         var div = buildElement(elemento);
         resp.append(div);
     }
+}
+
+function deleteElement(evento) {
+    var boton = evento.target;
+    var idElemento = boton.getAttribute('data-idElement');
+    axios.post('/questions/destroy/' + idElemento, {}).then(function (response) {
+        if (response.data === 1) {
+            alert("TODO OK");
+        } else {
+            alert("MAL");
+        }
+    }).catch(function (error) {
+        alert("ERROR AL BORRAR");
+    });
 }
 
 /***/ })
