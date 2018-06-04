@@ -65,8 +65,9 @@ class QuestionsController extends Controller
      * @param  \App\Questions  $questions
      * @return \Illuminate\Http\Response
      */
-    public function show(Questions $questions)
+    public function show($id)
     {
+        $questions = Questions::where('id', $id)->first();
         return view('questions.question', ['question' => $questions]);
     }
 

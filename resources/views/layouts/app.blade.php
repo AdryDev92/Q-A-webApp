@@ -20,7 +20,14 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+          integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css%22%3E">
     @stack('scripts')
+
 </head>
 <body>
     <div id="app">
@@ -53,11 +60,12 @@
                                 </a>
 
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a href="{{route('crearPregunta')}}" class="dropdown-item">Crear pregunta</a>
-                                    <a href="/user/{{ Auth()->user()->slug }}" class="dropdown-item">Perfil</a>
+                                    <a href="{{route('crearPregunta')}}" class="dropdown-item"><i class="fas fa-plus"></i> Crear pregunta</a>
+                                    <a href="/user/{{ Auth()->user()->slug }}" class="dropdown-item"><i class="fas fa-user-circle"></i> Perfil</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
+                                         <i class="fas fa-sign-out-alt"></i>
                                         {{ __('Logout') }}
                                     </a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
