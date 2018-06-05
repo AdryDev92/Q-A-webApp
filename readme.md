@@ -4,7 +4,7 @@ Proyecto basado en una web de preguntas y respuestas, similar a Stackoverflow.
 
 ## Status
 
-![db](https://img.shields.io/badge/database-passing-brightgreen.svg) ![status](https://img.shields.io/badge/status-wip-brightgreen.svg) ![bs](https://img.shields.io/badge/version-0.0.9-brightgreen.svg) ![issues](https://img.shields.io/badge/issues-2-orange.svg) ![commits](https://img.shields.io/badge/commits-9-blue.svg)
+![db](https://img.shields.io/badge/database-passing-brightgreen.svg) ![status](https://img.shields.io/badge/status-wip-brightgreen.svg) ![bs](https://img.shields.io/badge/version-0.0.9-brightgreen.svg) ![issues](https://img.shields.io/badge/issues-3-orange.svg) ![commits](https://img.shields.io/badge/commits-10-blue.svg)
 
 ---
 
