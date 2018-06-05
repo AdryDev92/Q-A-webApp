@@ -95,15 +95,25 @@ function validateAll(e) {
     var button = $('button');
     button.prop("disabled", true);
 
-    var tituloCorrecto = validarTitulo();
-    var categoriaCorrecta = validarCategoria();
-    var contenidoCorrecto = validarContenido();
+    var data = {};
+    data["title"] = $('#title').val();
+    data["category"] = $('#category').val();
+    data["content"] = $('#content').val();
 
-    if (tituloCorrecto && categoriaCorrecta && contenidoCorrecto) {
-        $('#formulario').submit();
-    }
+    axios.post('/questions/validate', data).then(function (response) {
 
-    button.prop("disabled", false);
+        var correctTitle = gestionarErrores($("#title"), response.data["title"]);
+        var correctCategory = gestionarErrores($("#category"), response.data["category"]);
+        var correctContent = gestionarErrores($("#content"), response.data["content"]);
+
+        if (!correctTitle && !correctCategory && !correctContent) {
+            $('#formulario').submit();
+        }
+    }).catch(function (error) {
+        console.log(error);
+    }).then(function () {
+        $('button').prop("disabled", false);
+    });
 }
 
 function validateName() {
@@ -203,8 +213,8 @@ function gestionarErrores(inputQueSeValida, listaErrores) {
     divErrores.html("");
     inputQueSeValida.removeClass("is-valid is-invalid");
 
-    if (listaErrores.length === 0) {
-        input.addClass("is-valid");
+    if (listaErrores === undefined || listaErrores.length === 0) {
+        inputQueSeValida.addClass("is-valid");
     } else {
         hayErrores = true;
         inputQueSeValida.addClass("is-invalid");
@@ -333,15 +343,19 @@ function mostrarRespuesta(response, resp) {
 function deleteElement(evento) {
     var boton = evento.target;
     var idElemento = boton.getAttribute('data-idElement');
-    axios.post('/questions/destroy/' + idElemento, {}).then(function (response) {
-        if (response.data === 1) {
-            alert("TODO OK");
-        } else {
-            alert("MAL");
-        }
-    }).catch(function (error) {
+    //mostar el modal
+    /*axios.post('/questions/destroy/'+idElemento,
+        {
+         }
+    ).then(function (response) {
+       if (response.data === 1){
+           alert("TODO OK");
+       } else {
+           alert("MAL");
+       }
+     }).catch(function (error) {
         alert("ERROR AL BORRAR");
-    });
+    });*/
 }
 
 /***/ })

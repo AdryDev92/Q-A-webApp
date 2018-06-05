@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container justify-content-center">
         <h1>
             Bienvenido al lugar donde encontrarás respuesta a todas tus preguntas
         </h1>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateQuestionsRequest;
 use App\Http\Requests\QuestionAjaxFormRequest;
 use App\Questions;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -65,10 +66,15 @@ class QuestionsController extends Controller
      * @param  \App\Questions  $questions
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Questions $questions)
     {
-        $questions = Questions::where('id', $id)->first();
+        $questions = Questions::where('id', $questions)->first();
         return view('questions.question', ['question' => $questions]);
+    }
+
+    public function showOneQuestion(User $user){
+        $user = Auth::user();
+        return view('questions.postList');
     }
 
     /**

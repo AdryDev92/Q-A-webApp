@@ -28,4 +28,8 @@ class Questions extends Model
     public function belongsToUser(){
         return $this->belongsTo(User::class);
     }
+
+    public function tags(){
+        return $this->belongsToMany(Questions::class);
+    }
 }

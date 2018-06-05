@@ -85,7 +85,7 @@
                     <div></div>
                 @endif
             </div>
-            <input type="submit" class="btn btn-primary">
+            <input type="submit" id="send" class="btn btn-primary">
         </div>
     </form>
 @endsection

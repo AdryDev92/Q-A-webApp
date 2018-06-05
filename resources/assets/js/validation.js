@@ -19,15 +19,28 @@ function validateAll(e) {
     let button = $('button');
     button.prop("disabled", true);
 
-    let tituloCorrecto = validarTitulo();
-    let categoriaCorrecta = validarCategoria();
-    let contenidoCorrecto = validarContenido();
+    let data = {};
+    data["title"] = $('#title').val();
+    data["category"] = $('#category').val();
+    data["content"] = $('#content').val();
 
-    if (tituloCorrecto && categoriaCorrecta && contenidoCorrecto) {
-        $('#formulario').submit();
-    }
+    axios.post('/questions/validate', data
+    ).then(function (response) {
 
-    button.prop("disabled", false);
+        let correctTitle = gestionarErrores($("#title"), response.data["title"]);
+        let correctCategory = gestionarErrores($("#category"), response.data["category"]);
+        let correctContent = gestionarErrores($("#content"), response.data["content"]);
+
+        if(!correctTitle && !correctCategory && !correctContent){
+            $('#formulario').submit();
+        }
+    }).catch(function (error) {
+        console.log(error);
+    }).then(function () {
+        $('button').prop("disabled",false);
+    });
+
+
 }
 
 function validateName() {
@@ -130,8 +143,8 @@ function gestionarErrores(inputQueSeValida, listaErrores) {
     divErrores.html("");
     inputQueSeValida.removeClass("is-valid is-invalid");
 
-    if (listaErrores.length === 0) {
-        input.addClass("is-valid");
+    if (listaErrores === undefined || listaErrores.length === 0) {
+        inputQueSeValida.addClass("is-valid");
     } else {
         hayErrores = true;
         inputQueSeValida.addClass("is-invalid");

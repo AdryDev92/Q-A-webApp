@@ -18,6 +18,19 @@ class UserController extends Controller
         //
     }
 
+    public function search($nick){
+        $user = User::where('nick',
+            $nick)->first();
+        $questions = $user->questions()
+            ->latest()->paginate(10);
+
+        return view('users.postList',
+            [
+                'questions' => $questions,
+                'user' => $user
+            ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
