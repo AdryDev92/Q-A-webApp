@@ -1,16 +1,16 @@
 # Questions & Answers
 
-Proyecto basado en una web de preguntas y respuestas, similar a Stackoverflow.
+Project powered by laravel about Q&A similar to stackoverflow
 
 ## Status
 
-![db](https://img.shields.io/badge/database-passing-brightgreen.svg) ![status](https://img.shields.io/badge/status-wip-brightgreen.svg) ![bs](https://img.shields.io/badge/version-0.0.9-brightgreen.svg) ![issues](https://img.shields.io/badge/issues-3-orange.svg) ![commits](https://img.shields.io/badge/commits-10-blue.svg)
+![db](https://img.shields.io/badge/database-passing-brightgreen.svg) ![status](https://img.shields.io/badge/status-wip-brightgreen.svg) ![bs](https://img.shields.io/badge/version-0.0.9-brightgreen.svg) ![issues](https://img.shields.io/badge/issues-3-orange.svg) ![commits](https://img.shields.io/badge/commits-14-blue.svg)
 
 ---
 
-## Sobre el proyecto
+## About project
 
-Para poner en marcha el proyecto, necesitamos una serie de componentes:
+To launch the project, you need next components:
 
 - [PHP](http://php.net/manual/es/install.php)
 - [Composer](https://getcomposer.org/download/) 
@@ -18,61 +18,58 @@ Para poner en marcha el proyecto, necesitamos una serie de componentes:
 - [VitualBox](https://www.virtualbox.org/wiki/Downloads)
 
 ---
-Una vez descargado e instalado todo, nos dirigimos a la terminal, y nos posicionamos en la ubicación donde va a estar el proyecto.
+In terminal, go the folder where you will host the porject and use:
 
 ```git clone https://github.com/AdryDev92/Q-A-webApp.git```
 
-## Configuración del proyecto
+## Project's configuration
 
-Nos dirigimos a la carpeta `/Homestead` y modificamos el archivo `homestead.yaml`. Para ello abrimos un `vi homestead.yaml` y añadimos la ruta del **folder**, los **sites** y la **database**:
+In `/Homestead`, modify `homestead.yaml` doing `vi homestead.yaml` and add the **folder**, **sites** and **database**'s routes:
 
 ![Imgur](https://i.imgur.com/1XzrZFH.png)
 
 
 
-Una vez hecho, nos dirigimos a `etc/` y abrimos el archivo `hosts` y añadimos la ip  del archivo `homestead.yaml`.
+Go to the `etc/` folder, open `hosts` file and add `homestead.yaml`'s ip.
 
 Ya con todo modificado, ponemos el servidor en marcha, dependiendo del que usemos (Vagrant, Mamp, etc...)
 
-**_Si usamos vagrant, ubicados en la carpeta `Homestead/` en la terminal, lanzamos el comando `vagrant up --provision`._**
+**_If we use vagrant, in the `Homestead/` folder, type `vagrant up --provision`._**
 
 ---
 
-Una vez hecho todo, renombramos el archivo `.env.example` a `.env` y lo modificamos con los datos correspondiente a nuestra base de datos.
+Once done, rename `.env.example` to `.env` and add your own credentials about your DB.
 
-Para generar la APP_KEY, utilizaremos el siguiente comando en la terminal, situado en la carpeta del proyecto:
+Use the next command to generate the APP_KEY:
 
 `php artisan key:generate`
 
-## Instalación de componentes
+## Component installation
 
-Para instalar los componentes necesarios, desde la terminal, utilizamos el siguiente comando:
+Type the next commands to install all necessary components:
 
-```bash
-npm install
-```
+`composer install`
 
-Para tener toda la base de datos correctamente disponible, utilizamos el siguiente comando para hacer la migración de las tablas:
+`npm install`
 
-```bash
-php artisan migrate
-```
+`php artisan migrate`
 
-## Funcionalidades
 
-**Como usuario logeado**:
+## Features
 
-- Crear y responder preguntas.
-- Votar por mejores respuestas.
-- Visualizar perfiles de otros usuarios.
-- Creación y respuesta rápida de preguntas.
-- Búsqueda de preguntas según categorías o hashtags.
-- Modificar información personal de perfil.
-- Editar y borrar tus preguntas.
-- Rol de **user** y **admin**.
+**As logged user**:
 
-**Como usuario NO logeado**:
+- Create and answer questions.
+- Vote best answers.
+- See other profiles.
+- Quick version create and answer.
+- Search questions by categories or hashtags.
+- Modify personal data in your profile.
+- Edit and delete your questions.
+- Role **user** and **admin**.
 
-- Registro.
-- Login (en caso de estar ya registrado).
-- Visualizar lista de preguntas de la página principal.
+**As unlogged user**:
+
+- Register.
+- Login (if you are registered).
+- See main page with questions.
