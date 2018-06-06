@@ -12,8 +12,6 @@
         <a class="" href="">
             <i class="fas fa-arrow-down fa-3x"></i>
         </a>
-
-
         <div>
             <ul class="pagination justify-content-center">
                 {{ $questions->links() }}

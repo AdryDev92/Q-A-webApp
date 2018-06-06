@@ -4,6 +4,6 @@
 @endpush
 @section('content')
     <div class="container">
-
+        @include('partials.structure_question')
     </div>
 @endsection

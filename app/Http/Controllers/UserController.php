@@ -18,11 +18,12 @@ class UserController extends Controller
         //
     }
 
-    public function search($nick){
-        $user = User::where('nick',
+    public function search($nick)
+    {
+        $user = User::with('nick',
             $nick)->first();
-        $questions = $user->questions()
-            ->latest()->paginate(10);
+        $questions = $user->hasManyQuestions()
+            ->latest();
 
         return view('users.postList',
             [
@@ -44,7 +45,7 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -60,8 +61,11 @@ class UserController extends Controller
      */
     public function show($slug)
     {
-        $user = User::where('slug', $slug)->get();
-        $questions = Questions::all();
+        #first() devuelve el primer resultado. get() te devuelve una coleccion
+        $user = User::where('slug', $slug)->first();
+
+        #comprobamos que el user_id del question coincide con el id del user
+        $questions = Questions::where('user_id', $user->id)->get();
 
         return view('users.profile',
             [
@@ -74,7 +78,7 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -85,8 +89,8 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -97,7 +101,7 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

@@ -35,17 +35,20 @@ class QuestionsController extends Controller
         return view('questions.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
 
+    /**
+     * @param QuestionAjaxFormRequest $request
+     * @return array
+     */
     public function validarAjax(QuestionAjaxFormRequest $request){
         return array();
     }
 
+
+    /**
+     * @param CreateQuestionsRequest $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function store(CreateQuestionsRequest $request)
     {
         Questions::create([
@@ -60,22 +63,32 @@ class QuestionsController extends Controller
         return redirect('/');
     }
 
+    public function detail($id)
+    {
+        #comprobamos que el user_id del question coincide con el id del user
+        $questions = Questions::findOrFail($id);
+        dd($questions);
+
+        return view('questions.question',
+            [
+                'question' => $questions
+            ]);
+
+    }
+
     /**
      * Display the specified resource.
      *
      * @param  \App\Questions  $questions
      * @return \Illuminate\Http\Response
      */
-    public function show(Questions $questions)
+    public function show($slug)
     {
-        $questions = Questions::where('id', $questions)->first();
+        $questions = Questions::where('slug', $slug)->first();
         return view('questions.question', ['question' => $questions]);
     }
 
-    public function showOneQuestion(User $user){
-        $user = Auth::user();
-        return view('questions.postList');
-    }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -88,6 +101,10 @@ class QuestionsController extends Controller
         //
     }
 
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function cargarDatos()
     {
         return view('questions.load_data');
@@ -98,20 +115,26 @@ class QuestionsController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Questions  $questions
-     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Questions $questions)
     {
-        //
+
     }
 
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
     public function obtenerDatosAjax()
     {
         $questions = Questions::all();
         return $questions;
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Support\Collection
+     */
     public function obtenerDatosAjaxCadaUno(Request $request)
     {
         $posicionInicial = $request->get("posicionInicial");
@@ -123,6 +146,11 @@ class QuestionsController extends Controller
         return $questions;
     }
 
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function cargarVista(Request $request){
         $posicionInicial = $request->get("posicionInicial");
         $numElementos = $request->get("numeroElementos");
@@ -137,6 +165,9 @@ class QuestionsController extends Controller
 
     }
 
+    /**
+     * @return int
+     */
     public function destroy()
     {
         $id = $_REQUEST['id'];
