@@ -4,7 +4,7 @@ Project powered by laravel about Q&A similar to stackoverflow
 
 ## Status
 
-![db](https://img.shields.io/badge/database-passing-brightgreen.svg) ![status](https://img.shields.io/badge/status-wip-brightgreen.svg) ![bs](https://img.shields.io/badge/version-0.0.9-brightgreen.svg) ![issues](https://img.shields.io/badge/issues-3-orange.svg) ![commits](https://img.shields.io/badge/commits-13-blue.svg)
+![db](https://img.shields.io/badge/database-passing-brightgreen.svg) ![status](https://img.shields.io/badge/status-wip-brightgreen.svg) ![bs](https://img.shields.io/badge/version-0.0.9-brightgreen.svg) ![issues](https://img.shields.io/badge/issues-3-orange.svg) ![commits](https://img.shields.io/badge/commits-14-blue.svg)
 
 ---
 
@@ -30,11 +30,11 @@ In `/Homestead`, modify `homestead.yaml` doing `vi homestead.yaml` and add the *
 
 
 
-Una vez hecho, nos dirigimos a `etc/` y abrimos el archivo `hosts` y añadimos la ip  del archivo `homestead.yaml`.
+Go to the `etc/` folder, open `hosts` file and add `homestead.yaml`'s ip.
 
 Ya con todo modificado, ponemos el servidor en marcha, dependiendo del que usemos (Vagrant, Mamp, etc...)
 
-**_Si usamos vagrant, ubicados en la carpeta `Homestead/` en la terminal, lanzamos el comando `vagrant up --provision`._**
+**_If we use vagrant, in the `Homestead/` folder, type `vagrant up --provision`._**
 
 ---
 
