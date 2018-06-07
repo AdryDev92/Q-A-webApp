@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Questions;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -81,9 +82,23 @@ class UserController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    /*public function edit($id)
     {
-        //
+        $user = User::where('id', $id)->first();
+
+        return view('users.settings',
+            [
+                'user' => $user
+            ]);
+    }*/
+
+    public function edit()
+    {
+//        $user = User::find($id)->first();
+        return view('users.settings',
+            array('user' => Auth::user())
+        );
+
     }
 
     /**

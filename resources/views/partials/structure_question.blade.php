@@ -7,4 +7,8 @@
         <p class="card-subtitle">{{$question->hashtag}}</p>
     </div>
     <p class="card-body">{{$question->content}}</p>
+
+    <p class="container">
+        Creada el {{ $question->created_at }} — {{ $question->user->name }}
+    </p>
 </div>

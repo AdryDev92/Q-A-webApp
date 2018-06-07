@@ -74,14 +74,14 @@ class CreateQuestionsRequest extends FormRequest
 
 
     protected function validarContenido(){
-        return 'required|min:15|string|max:500';
+        return 'required|min:15|string|max:1000';
     }
 
     protected function mensajesContenido()
     {
         $mensajes = array();
         $mensajes['content.required'] = 'El contenido es erróneo';
-        $mensajes['content.max'] = 'El número máximo de caracteres es 200';
+        $mensajes['content.max'] = 'El número máximo de caracteres es 1000';
         $mensajes['content.min'] = 'El número mínimo de caracteres es 15';
         $mensajes['content.string'] = 'El formato no es válido';
         return $mensajes;

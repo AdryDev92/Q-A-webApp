@@ -26,14 +26,18 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/questions/obtenerDatos', 'QuestionsController@obtenerDatosAjax');
     Route::post('/questions/obtenerCadaDato', 'QuestionsController@obtenerDatosAjaxCadaUno');
     Route::post('/questions/vistaPregunta','QuestionsController@cargarVista');
-
     Route::get('/questions/{question}', 'QuestionsController@show');
 
-    Route::get('/user/{user}', 'UserController@show')->name("profile");
+    Route::get('/questions/edit/{slug}', 'QuestionsController@edit');
+    Route::get('/questions/update/{slug}', 'QuestionsController@update');
+
     Route::post('/questions/destroy/{id}', 'QuestionsController@destroy');
+
+    Route::get('/user/{user}', 'UserController@show')->name("profile");
+    Route::get ('/user/edit/{user}', 'UserController@edit')->name("settings");
 });
 
-Route::post('/questions/validate','QuestionsController@validarAjax');
-Route::get('/questions','QuestionsController@show');
+    Route::post('/questions/validate','QuestionsController@validarAjax');
+    Route::get('/questions','QuestionsController@show');
 
 

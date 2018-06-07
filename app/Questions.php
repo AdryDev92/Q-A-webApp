@@ -25,11 +25,11 @@ class Questions extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\belongsTo
      */
-    public function belongsToUser(){
-        return $this->belongsTo(User::class);
+    public function user(){
+        return $this->belongsTo("App\User");
     }
 
     public function tags(){
-        return $this->belongsToMany(Questions::class);
+        return $this->belongsToMany("App\Questions");
     }
 }

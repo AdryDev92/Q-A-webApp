@@ -63,19 +63,6 @@ class QuestionsController extends Controller
         return redirect('/');
     }
 
-    public function detail($id)
-    {
-        #comprobamos que el user_id del question coincide con el id del user
-        $questions = Questions::findOrFail($id);
-        dd($questions);
-
-        return view('questions.question',
-            [
-                'question' => $questions
-            ]);
-
-    }
-
     /**
      * Display the specified resource.
      *
@@ -101,6 +88,10 @@ class QuestionsController extends Controller
         //
     }
 
+    public function update(Request $request, Questions $questions)
+    {
+
+    }
 
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -116,10 +107,6 @@ class QuestionsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Questions  $questions
      */
-    public function update(Request $request, Questions $questions)
-    {
-
-    }
 
 
     /**

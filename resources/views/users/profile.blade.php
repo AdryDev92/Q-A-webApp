@@ -16,6 +16,5 @@
                 @include('users.postList')
             </div>
         </div>
-
     </div>
 @endsection
