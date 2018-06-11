@@ -11,7 +11,7 @@
         <div class="container">
             <div class="form-group row">
                 <div class="form-group col-12">
-                    <label for="title" class="glyphicon glyphicon-user">Título</label>
+                    <label for="title">Título</label>
                     <input type="text" placeholder="Escribe un título..." id="title" name="title" class="form-control">
                     @if($errors->has('content'))
                         <div>

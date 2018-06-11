@@ -1,4 +1,4 @@
-<form action="">
+<form action="" method="post">
     <div class="container">
         <div class="row">
             <div class="form-group col-6">
@@ -28,7 +28,7 @@
 
             <div class="form-group col-4">
                 <label for="nick">Confirmar contraseña</label>
-                <input type="password" id="password" class="form-control" placeholder="Repite la nueva contraseña">
+                <input type="password" id="confirm_password" class="form-control" placeholder="Repite la nueva contraseña">
             </div>
         </div>
         <input type="submit" value="Actualizar" class="btn btn-primary btn-lg mt-3">

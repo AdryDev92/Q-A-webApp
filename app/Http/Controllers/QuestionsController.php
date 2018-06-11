@@ -5,11 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateQuestionsRequest;
 use App\Http\Requests\QuestionAjaxFormRequest;
 use App\Questions;
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Symfony\Component\Console\Question\Question;
 
 class QuestionsController extends Controller
 {
@@ -88,7 +86,7 @@ class QuestionsController extends Controller
         //
     }
 
-    public function update(Request $request, Questions $questions)
+    public function update(Request $request, $id)
     {
 
     }
@@ -153,14 +151,16 @@ class QuestionsController extends Controller
     }
 
     /**
-     * @return int
+     * @param Questions $questions
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
-    public function destroy()
+    public function destroy($id)
     {
-        $id = $_REQUEST['id'];
 
-        Questions::destroy($id);
+        $questions = Questions::where('id', $id)->first();
+          $questions->delete();
 
-        return 1;
+          return 1;
     }
 }

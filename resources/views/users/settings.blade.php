@@ -11,7 +11,7 @@
                 @include('users.aside_menu_nav')
             </div>
 
-            <div class="col-8">
+            <div class="col-8 card p-3">
                     @include('partials.personal_data')
             </div>
         </div>

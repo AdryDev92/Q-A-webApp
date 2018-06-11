@@ -9,6 +9,6 @@
     <p class="card-body">{{$question->content}}</p>
 
     <p class="container">
-        Creada el {{ $question->created_at }} — {{ $question->user->name }}
+        Creada el {{ $question->created_at }} — {{ $question->user->nick }}
     </p>
 </div>

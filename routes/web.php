@@ -31,7 +31,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/questions/edit/{slug}', 'QuestionsController@edit');
     Route::get('/questions/update/{slug}', 'QuestionsController@update');
 
-    Route::post('/questions/destroy/{id}', 'QuestionsController@destroy');
+    Route::delete('/questions/destroy/{id}', 'QuestionsController@destroy');
 
     Route::get('/user/{user}', 'UserController@show')->name("profile");
     Route::get ('/user/edit/{user}', 'UserController@edit')->name("settings");

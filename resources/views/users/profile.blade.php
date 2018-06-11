@@ -14,6 +14,7 @@
             </div>
             <div class="col-9">
                 @include('users.postList')
+
             </div>
         </div>
     </div>

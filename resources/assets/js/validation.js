@@ -6,7 +6,7 @@ $(function () {
     $('#cargar').on("click", cargarDatos);
     $('#cargarUno').on("click", cargarDatosUno);
     $('#cargarVista').on("click",cargarVistaUno);
-    $('button[data-type="delete"]').on("click", deleteElement);
+    $('a[data-type="delete"]').on("click", deleteElement);
 
 });
 
@@ -254,22 +254,33 @@ function mostrarRespuesta(response, resp) {
     }
 }
 
+function ejecutarDelete(idElemento) {
+    return function() {
+        axios.delete('/questions/destroy/' + idElemento,
+            {}
+        ).then(function (response) {
+
+            $("#delete").modal("hide");
+            //alert("La pregunta se ha borrado correctamente");
+            alert("La pregunta se ha borrado correctamente");
+
+        }).catch(function (error) {
+            setTimeout(function () {
+                $("#delete").modal("hide");
+            },10)
+        }).then(function(){
+            let botonDelete = $("#buttonDelete");
+            botonDelete.unbind();
+        });
+    }
+}
+
 function deleteElement(evento){
+    evento.preventDefault();
     let boton = evento.target;
-    let idElemento = boton.getAttribute('data-idElement');
-    //mostar el modal
-    /*axios.post('/questions/destroy/'+idElemento,
-        {
-
-        }
-    ).then(function (response) {
-       if (response.data === 1){
-           alert("TODO OK");
-       } else {
-           alert("MAL");
-       }
-
-    }).catch(function (error) {
-        alert("ERROR AL BORRAR");
-    });*/
+    let idElemento = boton.getAttribute('data-idelement');
+    let botonDelete = $("#buttonDelete");
+    botonDelete.unbind();
+    botonDelete.on("click",ejecutarDelete(idElemento));
+    $("#delete").modal();
 }

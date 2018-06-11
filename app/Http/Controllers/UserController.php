@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserFormRequest;
 use App\Questions;
 use App\User;
 use Illuminate\Http\Request;
@@ -62,10 +63,10 @@ class UserController extends Controller
      */
     public function show($slug)
     {
-        #first() devuelve el primer resultado. get() te devuelve una coleccion
+        //first() devuelve el primer resultado. get() te devuelve una coleccion
         $user = User::where('slug', $slug)->first();
 
-        #comprobamos que el user_id del question coincide con el id del user
+        //comprobamos que el user_id del question coincide con el id del user
         $questions = Questions::where('user_id', $user->id)->get();
 
         return view('users.profile',
@@ -76,25 +77,13 @@ class UserController extends Controller
 
     }
 
+
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * Display the current data about user from session
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    /*public function edit($id)
-    {
-        $user = User::where('id', $id)->first();
-
-        return view('users.settings',
-            [
-                'user' => $user
-            ]);
-    }*/
-
     public function edit()
     {
-//        $user = User::find($id)->first();
         return view('users.settings',
             array('user' => Auth::user())
         );
@@ -102,15 +91,27 @@ class UserController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @param UserFormRequest $request
+     * @param User $user
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, $id)
+    public function update(UserFormRequest $request, User $user)
     {
-        //
+        //fill the fields with new data
+        $user->fill([
+           'name' => $request->input('name'),
+           'nick' => $request->input('nick'),
+           'age' => $request->input('age'),
+           'email' => $request->input('email'),
+           'password' => $request->input('password'),
+        ]);
+
+        //save changes in the store
+        $user->update();
+
+        //redirect to profile
+        return redirect('users.profile');
+
     }
 
     /**
@@ -121,6 +122,6 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+
     }
 }

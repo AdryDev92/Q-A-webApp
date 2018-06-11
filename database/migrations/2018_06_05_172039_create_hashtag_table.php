@@ -18,11 +18,6 @@ class CreateHashtagTable extends Migration
             $table->string('slug');
             $table->timestamps();
         });
-
-        Schema::create('hashtag_question', function (Blueprint $table){
-            $table->string('slug_hashtag');
-            $table->integer('id_question');
-        });
     }
 
     /**
@@ -33,7 +28,5 @@ class CreateHashtagTable extends Migration
     public function down()
     {
         Schema::dropIfExists('hashtag');
-        Schema::dropIfExists('hashtag_question');
-
     }
 }
