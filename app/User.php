@@ -31,7 +31,7 @@ class User extends Authenticatable
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function hasManyQuestions(){
-        return $this->hasMany(Questions::class);
+        return $this->hasMany(Question::class);
 
     }
 }

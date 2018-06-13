@@ -340,24 +340,31 @@ function mostrarRespuesta(response, resp) {
     }
 }
 
+/**
+ * Delete data from the storage
+ *
+ * @param idElemento ID from created question
+ * @returns {Function}
+ */
 function ejecutarDelete(idElemento) {
     return function () {
         axios.delete('/questions/destroy/' + idElemento, {}).then(function (response) {
-
+            $("#question" + idElemento).remove();
             $("#delete").modal("hide");
-            //alert("La pregunta se ha borrado correctamente");
-            alert("La pregunta se ha borrado correctamente");
         }).catch(function (error) {
-            setTimeout(function () {
-                $("#delete").modal("hide");
-            }, 10);
+            $("#delete").modal("hide");
         }).then(function () {
+
             var botonDelete = $("#buttonDelete");
             botonDelete.unbind();
         });
     };
 }
 
+/**
+ * Show modal when click in delete button from profile list
+ * @param evento
+ */
 function deleteElement(evento) {
     evento.preventDefault();
     var boton = evento.target;

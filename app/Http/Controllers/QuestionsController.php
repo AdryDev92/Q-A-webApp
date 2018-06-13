@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Hashtag;
 use App\Http\Requests\CreateQuestionsRequest;
 use App\Http\Requests\QuestionAjaxFormRequest;
-use App\Questions;
+use App\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -18,7 +19,7 @@ class QuestionsController extends Controller
      */
     public function index()
     {
-        $questions = Questions::latest()->paginate(10);
+        $questions = Question::latest()->paginate(10);
 
         return view('home',compact('questions'));
     }
@@ -49,7 +50,9 @@ class QuestionsController extends Controller
      */
     public function store(CreateQuestionsRequest $request)
     {
-        Questions::create([
+        $hashtags = explode(", ",\request('hashtag'));
+
+        $question = Question::create([
             'title' => \request('title'),
             'user_id' => Auth::user()->id,
             'slug' => str_slug(\request('title')),
@@ -58,18 +61,26 @@ class QuestionsController extends Controller
             'hashtag' => \request('hashtag')
         ]);
 
+
+        foreach ($hashtags as $hashtag){
+            $hashtag = Hashtag::firstOrCreate([
+                'name' => $hashtag,
+                'slug' => str_slug($hashtag)
+            ]);
+            $question->hashtags()->attach($hashtag);
+        }
         return redirect('/');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Questions  $questions
+     * @param  \App\Question  $questions
      * @return \Illuminate\Http\Response
      */
     public function show($slug)
     {
-        $questions = Questions::where('slug', $slug)->first();
+        $questions = Question::where('slug', $slug)->first();
         return view('questions.question', ['question' => $questions]);
     }
 
@@ -78,10 +89,10 @@ class QuestionsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Questions $questions
+     * @param  \App\Question $questions
      * @return void
      */
-    public function edit(Questions $questions)
+    public function edit(Question $questions)
     {
         //
     }
@@ -103,7 +114,7 @@ class QuestionsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Questions  $questions
+     * @param  \App\Question  $questions
      */
 
 
@@ -112,7 +123,7 @@ class QuestionsController extends Controller
      */
     public function obtenerDatosAjax()
     {
-        $questions = Questions::all();
+        $questions = Question::all();
         return $questions;
     }
 
@@ -151,14 +162,13 @@ class QuestionsController extends Controller
     }
 
     /**
-     * @param Questions $questions
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
+     * @param $id
+     * @return int
      */
     public function destroy($id)
     {
 
-        $questions = Questions::where('id', $id)->first();
+        $questions = Question::where('id', $id)->first();
           $questions->delete();
 
           return 1;

@@ -9,9 +9,13 @@
     </thead>
     <tbody>
     @foreach($questions as $question)
-        <tr>
-            <td><a href="/questions/{{$question->slug }}">{{$question->title}}</a></td>
-            <td>{{$question->created_at}}</td>
+        <tr id="question{{$question->id}}">
+            <td>
+                <a href="/questions/{{$question->slug }}">{{$question->title}}</a>
+            </td>
+            <td>
+                {{$question->created_at}}
+            </td>
             <td>
                 <a class="" href="/questions/update/{{$question->slug}}">
                     <i class="far fa-edit fa-2x text-info"></i>
@@ -26,10 +30,11 @@
                 <a class="" data-type="delete" href="#">
                     <i data-idelement="{{$question->id}}" class="fas fa-trash-alt fa-2x text-danger"></i>
                 </a>
-                @include('partials.modal_delete')
             </td>
         </tr>
     @endforeach
+    @include('partials.modal_delete')
+
     @if (session('deleted'))
         <div class="alert alert-danger">
             {{ session('deleted') }}

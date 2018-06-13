@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserFormRequest;
-use App\Questions;
+use App\Question;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -67,7 +67,7 @@ class UserController extends Controller
         $user = User::where('slug', $slug)->first();
 
         //comprobamos que el user_id del question coincide con el id del user
-        $questions = Questions::where('user_id', $user->id)->get();
+        $questions = Question::where('user_id', $user->id)->get();
 
         return view('users.profile',
             [

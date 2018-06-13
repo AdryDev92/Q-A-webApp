@@ -2,7 +2,7 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\Questions::class, function (Faker $faker) {
+$factory->define(App\Question::class, function (Faker $faker) {
 
     $title = rtrim($faker->realText(random_int(25, 50)), '.');
     $slug = str_slug($title);

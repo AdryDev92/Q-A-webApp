@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Questions extends Model
+class Question extends Model
 {
     protected $table = 'questions';
     protected $fillable = [
@@ -29,7 +29,7 @@ class Questions extends Model
         return $this->belongsTo("App\User");
     }
 
-    public function tags(){
-        return $this->belongsToMany("App\Questions");
+    public function hashtags(){
+        return $this->belongsToMany("App\Hashtag");
     }
 }

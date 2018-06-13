@@ -12,7 +12,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         factory(App\User::class, 5)->create()->each(function (App\User $user) {
-            factory(\App\Questions::class, 1)->create([
+            factory(\App\Question::class, 1)->create([
                 'user_id' => $user->id]);
         });
     }
