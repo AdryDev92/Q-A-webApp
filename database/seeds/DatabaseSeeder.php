@@ -11,9 +11,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\User::class, 5)->create()->each(function (App\User $user) {
-            factory(\App\Question::class, 1)->create([
-                'user_id' => $user->id]);
+        // $this->call(UsersTableSeeder::class);
+        factory(App\User::class, 1)->create([
+            'role' => 'admin'
+        ]);
+        factory(App\Question::class, 1)->create(['user_id' => 1])->each(function ($question) {
+            $question->hashtags()->save(factory(App\Hashtag::class)->make());
         });
+        factory(App\Comment::class, 1)->create([
+            'question_id' => 1
+        ]);
     }
 }
