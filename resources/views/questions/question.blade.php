@@ -1,9 +1,11 @@
 @extends('layouts.app')
-@push('scripts')
-    <script src="{{ asset('js/validation.js') }}" defer></script>
-@endpush
 @section('content')
     <div class="container">
         @include('partials.structure_question')
+        @foreach( $question->comments as $comment)
+            {{ $comment->content }}
+            <p></p>
+        @endforeach
+        @include('partials.comments')
     </div>
 @endsection

@@ -3,8 +3,8 @@
         <h2 class="card-title">
             <a href="/questions/{{$question->slug }}">{{$question->title}}</a>
         </h2>
-        <p class="card-subtitle"><em>{{$question->category}}</em></p>
-        <p class="card-subtitle">@include('partials.hashtag')</p>
+        <p class="card-subtitle"><span class="badge badge-warning">{{ $question->category }}</span></p>
+        @include('partials.hashtag')
     </div>
     <p class="card-body">{{$question->content}}</p>
 

@@ -32,4 +32,21 @@ class Question extends Model
     public function hashtags(){
         return $this->belongsToMany("App\Hashtag");
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    function isMine(User $user)
+    {
+        return $this->user_id === $user->id;
+    }
+
+    public function addComment($content)
+    {
+        $this->comments()->create([
+            'content' => $content
+        ]);
+    }
 }
