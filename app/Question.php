@@ -46,7 +46,8 @@ class Question extends Model
     public function addComment($content)
     {
         $this->comments()->create([
-            'content' => $content
+            'content' => $content,
+            'question_id' => $this->id
         ]);
     }
 }

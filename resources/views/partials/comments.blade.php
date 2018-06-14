@@ -1,8 +1,7 @@
-<form action="/questions/{{$question->id}}/comments" id="formulario" method="post">
+<form action="/questions/{{$question->slug}}/comments" id="formulario" method="post">
     {{ csrf_field() }}
 
     <div class="container">
-
         <div class="form-group">
             <label for="content">Escribe tu respuesta</label>
             <textarea name="content" id="content"

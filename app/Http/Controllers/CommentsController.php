@@ -32,19 +32,14 @@ class CommentsController extends Controller
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store($id)
+    public function store($slug)
     {
-        if( ! Auth::user()){
             $this->validate(request(), [
                 'content' => 'required|min:4'
             ]);
-        }else{
-            $this->validate(request(), [
-                'content' => 'required|min:4'
-            ]);
-        }
-        $question = Question::findOrFail($id);
+        $question = Question::where('slug', $slug)->first();
         $question->addComment(request('content'));
+
         return back();
     }
 

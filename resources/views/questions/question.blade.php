@@ -3,7 +3,9 @@
     <div class="container">
         @include('partials.structure_question')
         @foreach( $question->comments as $comment)
-            {{ $comment->content }}
+            <div class="card container">
+                {{ $comment->content }} — {{ $question->created_at }}
+            </div>
             <p></p>
         @endforeach
         @include('partials.comments')

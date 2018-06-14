@@ -19,26 +19,26 @@ Auth::routes();
 //Rutas que se ven cuando estas logeado
 Route::group(['middleware' => 'auth'], function(){
 
-    //Crear
+    //Create
     Route::get('/questions/create','QuestionsController@create')->name("crearPregunta");
     Route::post('/questions/create', 'QuestionsController@store');
     Route::post('/questions/{slug}/comments', 'CommentsController@store');
 
-    //Vistas
+    //Read
     Route::get('/questions/load_data','QuestionsController@cargarDatos');
     Route::get('/questions/obtenerDatos', 'QuestionsController@obtenerDatosAjax');
     Route::post('/questions/obtenerCadaDato', 'QuestionsController@obtenerDatosAjaxCadaUno');
     Route::post('/questions/vistaPregunta','QuestionsController@cargarVista');
     Route::get('/questions/{question}', 'QuestionsController@show');
 
-    //Actualizar
+    //Update
     Route::get('/questions/edit/{slug}', 'QuestionsController@edit');
     Route::get('/questions/update/{slug}', 'QuestionsController@update');
 
-    //Borrar
+    //Delete
     Route::delete('/questions/destroy/{id}', 'QuestionsController@destroy')->name("deleteElement");
 
-    //Perfil
+    //Profile
     Route::get('/user/{user}', 'UserController@show')->name("profile");
     Route::get ('/user/edit/{user}', 'UserController@edit')->name("settings");
 });
