@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Hashtag;
 use App\Http\Requests\CreateQuestionsRequest;
 use App\Http\Requests\QuestionAjaxFormRequest;
+use App\Http\Requests\UpdateQuestionRequest;
 use App\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,6 +25,13 @@ class QuestionsController extends Controller
         return view('home',compact('questions'));
     }
 
+    public function adminIndex(Request $request){
+        $questions = Question::all();
+        return view('admin.questions.profile', [
+            'questions' => $request->user()->adminQuestions(),
+            'question' => $questions]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -31,7 +39,7 @@ class QuestionsController extends Controller
      */
     public function create()
     {
-        return view('questions.create');
+        return view('admin.questions.create');
     }
 
 
@@ -81,7 +89,7 @@ class QuestionsController extends Controller
     public function show($slug)
     {
         $questions = Question::where('slug', $slug)->first();
-        return view('questions.question', ['question' => $questions]);
+        return view('public.questions.question', ['question' => $questions]);
     }
 
 
@@ -92,14 +100,29 @@ class QuestionsController extends Controller
      * @param  \App\Question $questions
      * @return void
      */
-    public function edit(Question $questions)
+    public function edit($id)
     {
-        //
+        $question = DB::table('questions')->where('id', $id)->first();
+        return view('public.questions.edit', ['question' => $question]);
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdateQuestionRequest $request, $id)
     {
+        $path = $request->path();
+        $question = Question::findOrFail($id);
+        if (strpos($path, 'info')) {
+            $data = array_filter($request->all());
+            $question->fill($data);
+        }
+        if (strpos($path, 'otros-datos')) {
+            $data = $request->all();
+            $question->fill($data);
+        }
 
+        $question->save();
+        return redirect()
+            ->back()
+            ->with('exito', 'Datos actualizados');
     }
 
     /**
@@ -107,7 +130,7 @@ class QuestionsController extends Controller
      */
     public function cargarDatos()
     {
-        return view('questions.load_data');
+        return view('admin.questions.load_data');
     }
 
     /**
@@ -155,7 +178,7 @@ class QuestionsController extends Controller
             ->limit($numElementos)
             ->get();
 
-        $vista = view('questions.viewQuestion', ['questions' => $questions]);
+        $vista = view('public.questions.viewQuestion', ['questions' => $questions]);
 
         return $vista;
 

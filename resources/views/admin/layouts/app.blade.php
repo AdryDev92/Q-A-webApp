@@ -31,7 +31,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
+        <nav class="navbar navbar-expand-md navbar-light bg-dark navbar-laravel">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'QA') }}
@@ -60,6 +60,7 @@
                                 </a>
 
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a href="{{route('admin.panel')}}" class="dropdown-item"><i class="fas fa-toolbox"></i> Panel de Administrador</a>
                                     <a href="{{route('crearPregunta')}}" class="dropdown-item"><i class="fas fa-plus"></i> Crear pregunta</a>
                                     <a href="/user/{{ Auth()->user()->slug }}" class="dropdown-item"><i class="fas fa-user-circle"></i> Perfil</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"

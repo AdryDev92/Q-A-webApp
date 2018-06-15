@@ -20,8 +20,8 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function(){
 
     //Create
-    Route::get('/questions/create','QuestionsController@create')->name("crearPregunta");
-    Route::post('/questions/create', 'QuestionsController@store');
+    Route::get('/questions/create','QuestionsController@create')->name("crearPregunta"); //completado
+    Route::post('/questions/create', 'QuestionsController@store'); //completado
     Route::post('/questions/{slug}/comments', 'CommentsController@store');
 
     //Read
@@ -32,15 +32,27 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/questions/{question}', 'QuestionsController@show');
 
     //Update
-    Route::get('/questions/edit/{slug}', 'QuestionsController@edit');
-    Route::get('/questions/update/{slug}', 'QuestionsController@update');
+    /*Route::get('/questions/edit/{slug}', 'QuestionsController@edit');
+    Route::get('/questions/update/{slug}', 'QuestionsController@update');*/
+
+    Route::get('/questions/{slug}/edit/info', 'QuestionsController@edit')->name('question.edit');
+    Route::patch('/questions/{slug}/edit/info', 'QuestionsController@update');
 
     //Delete
-    Route::delete('/questions/destroy/{id}', 'QuestionsController@destroy')->name("deleteElement");
+    Route::delete('/questions/destroy/{id}', 'QuestionsController@destroy')->name("deleteElement"); //completado
 
     //Profile
     Route::get('/user/{user}', 'UserController@show')->name("profile");
     Route::get ('/user/edit/{user}', 'UserController@edit')->name("settings");
+
+    //Admin routes
+    Route::get('/admin', 'AdminController@index')->name('admin.panel'); //funciona
+    Route::get('/admin/questions', 'QuestionsController@adminIndex')->name('admin.questions');
+    Route::get('/admin/questions/create', 'QuestionsController@create'); //funciona
+    Route::post('/admin/questions', 'QuestionsController@store');
+    Route::get('/admin/questions/{slug}/edit', 'QuestionsController@edit')->name('questions.edit');
+    Route::patch('/admin/questions/{slug}', 'QuestionsController@patch')->name('questions.patch');
+
 });
 
     Route::post('/questions/validate','QuestionsController@validarAjax');

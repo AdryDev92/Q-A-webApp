@@ -20,19 +20,6 @@ class UserController extends Controller
         //
     }
 
-    public function search($nick)
-    {
-        $user = User::with('nick',
-            $nick)->first();
-        $questions = $user->hasManyQuestions()
-            ->latest();
-
-        return view('users.postList',
-            [
-                'questions' => $questions,
-                'user' => $user
-            ]);
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -65,15 +52,16 @@ class UserController extends Controller
     {
         //first() devuelve el primer resultado. get() te devuelve una coleccion
         $user = User::where('slug', $slug)->first();
-
         //comprobamos que el user_id del question coincide con el id del user
-        $questions = Question::where('user_id', $user->id)->get();
+        $questions = Question::where('user_id', $user->slug)->get();
+        //dd($questions);
 
-        return view('users.profile',
+        return view('public.questions.profile',
             [
-                'profile' => $user,
+                'user' => $user,
                 'questions' => $questions
             ]);
+
 
     }
 
@@ -84,7 +72,7 @@ class UserController extends Controller
      */
     public function edit()
     {
-        return view('users.settings',
+        return view('admin.partials.settings',
             array('user' => Auth::user())
         );
 

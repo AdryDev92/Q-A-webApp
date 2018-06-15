@@ -354,7 +354,6 @@ function ejecutarDelete(idElemento) {
         }).catch(function (error) {
             $("#delete").modal("hide");
         }).then(function () {
-
             var botonDelete = $("#buttonDelete");
             botonDelete.unbind();
         });

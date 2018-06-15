@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('public.layouts.app')
 
 @section('content')
     <div class="container justify-content-center">
@@ -8,7 +8,7 @@
     </div>
 
     <div class="container">
-        @include('questions.viewQuestion')
+        @include('public.questions.viewQuestion')
         <div>
             <ul class="pagination justify-content-center">
                 {{ $questions->links() }}

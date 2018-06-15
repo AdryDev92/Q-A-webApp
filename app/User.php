@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -33,5 +34,18 @@ class User extends Authenticatable
     public function hasManyQuestions(){
         return $this->hasMany(Question::class);
 
+    }
+
+    public function adminQuestions()
+    {
+        switch ($this->role) {
+            case "admin":
+                $questions = Question::latest()->paginate(10);
+                break;
+            case "user":
+                $questions = Question::where('user_id', Auth::id())->paginate(10);
+                break;
+        }
+        return $questions;
     }
 }

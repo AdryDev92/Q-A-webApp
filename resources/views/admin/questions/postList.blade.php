@@ -33,6 +33,6 @@
             </td>
         </tr>
     @endforeach
-    @include('public.partials.modal_delete')
+    @include('admin.partials.modal_delete')
     </tbody>
 </table>

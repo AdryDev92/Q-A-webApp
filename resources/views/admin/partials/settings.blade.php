@@ -1,4 +1,4 @@
-@extends('public.layouts.app')
+@extends('admin.layouts.app')
 @push('scripts')
     <script src="{{ asset('js/validation.js') }}" defer></script>
 @endpush
@@ -12,7 +12,7 @@
             </div>
 
             <div class="col-8 card p-3">
-                    @include('public.partials.personal_data')
+                    @include('admin.partials.personal_data')
             </div>
         </div>
     </div>

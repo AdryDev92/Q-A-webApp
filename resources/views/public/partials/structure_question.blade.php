@@ -4,11 +4,11 @@
             <a href="/questions/{{$question->slug }}">{{$question->title}}</a>
         </h2>
         <p class="card-subtitle"><span class="badge badge-warning">{{ $question->category }}</span></p>
-        @include('partials.hashtag')
+        @include('admin.partials.hashtag')
     </div>
     <p class="card-body">{{$question->content}}</p>
 
     <p class="container">
-        Creado el {{ $question->created_at }} — {{ $question->user->nick }}
+        Creado el {{ $question->created_at }} — {{ $question->user->nick }} ({{$question->user->role}})
     </p>
 </div>

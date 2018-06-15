@@ -43,7 +43,7 @@ function validateAll(e) {
 
 }
 
-function validateName() {
+/*function validateName() {
     let esCorrecto = false;
     let regex = /[a-zA-Z]+/;
     let name = $('#name').val();
@@ -63,9 +63,9 @@ function validateName() {
         esCorrecto = true;
     }
     return esCorrecto;
-}
+}*/
 
-function validateAge() {
+/*function validateAge() {
 
     let esCorrecto = false;
     let edad = $('#age').val();
@@ -83,9 +83,9 @@ function validateAge() {
         error.html("No eres mayor de edad").addClass("bg-danger");
     }
 
-}
+}*/
 
-function validateNick() {
+/*function validateNick() {
     let regex = /[a-zA-Z]+/;
     let nick = $('#nick').val();
     let input = $('#nick');
@@ -104,12 +104,12 @@ function validateNick() {
         input.addClass("is-valid");
         esCorrecto = true;
     }
-}
+}*/
 
-function validateEmail() {
+/*function validateEmail() {
     let email = $('#email');
     let error = $('#errorEmail');
-}
+}*/
 
 function validar(campo) {
 
@@ -252,42 +252,4 @@ function mostrarRespuesta(response, resp) {
         let div = buildElement(elemento);
         resp.append(div);
     }
-}
-
-
-/**
- * Delete data from the storage
- *
- * @param idElemento ID from created question
- * @returns {Function}
- */
-function ejecutarDelete(idElemento) {
-    return function() {
-        axios.delete('/questions/destroy/' + idElemento,
-            {}
-        ).then(function (response) {
-            $("#question"+idElemento).remove();
-            $("#delete").modal("hide");
-        }).catch(function (error) {
-            $("#delete").modal("hide");
-        }).then(function(){
-            let botonDelete = $("#buttonDelete");
-            botonDelete.unbind();
-
-        });
-    }
-}
-
-/**
- * Show modal when click in delete button from profile list
- * @param evento
- */
-function deleteElement(evento){
-    evento.preventDefault();
-    let boton = evento.target;
-    let idElemento = boton.getAttribute('data-idelement');
-    let botonDelete = $("#buttonDelete");
-    botonDelete.unbind();
-    botonDelete.on("click",ejecutarDelete(idElemento));
-    $("#delete").modal();
 }

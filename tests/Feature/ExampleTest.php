@@ -64,4 +64,14 @@ class ExampleTest extends TestCase
 
     }
 
+    public function testDeleteElement(){
+        $user = User::find(1);
+
+        //user logged
+        $response = $this->get('/questions/destroy/{id}');
+        $response->assertStatus(200);
+
+
+    }
+
 }
