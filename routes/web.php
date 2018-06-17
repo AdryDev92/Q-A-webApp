@@ -36,7 +36,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/questions/update/{slug}', 'QuestionsController@update');*/
 
     Route::get('/questions/{slug}/edit/info', 'QuestionsController@edit')->name('question.edit');
-    Route::patch('/questions/{slug}/edit/info', 'QuestionsController@update');
+    Route::patch('/questions/{slug}/edit', 'QuestionsController@update');
 
     //Delete
     Route::delete('/questions/destroy/{id}', 'QuestionsController@destroy')->name("deleteElement"); //completado
@@ -44,14 +44,19 @@ Route::group(['middleware' => 'auth'], function(){
     //Profile
     Route::get('/user/{user}', 'UserController@show')->name("profile");
     Route::get ('/user/edit/{user}', 'UserController@edit')->name("settings");
+    Route::patch('user/edit/{user}/update', 'UserController@update');
 
-    //Admin routes
-    Route::get('/admin', 'AdminController@index')->name('admin.panel'); //funciona
-    Route::get('/admin/questions', 'QuestionsController@adminIndex')->name('admin.questions');
-    Route::get('/admin/questions/create', 'QuestionsController@create'); //funciona
-    Route::post('/admin/questions', 'QuestionsController@store');
-    Route::get('/admin/questions/{slug}/edit', 'QuestionsController@edit')->name('questions.edit');
-    Route::patch('/admin/questions/{slug}', 'QuestionsController@patch')->name('questions.patch');
+        //Route::group(['middleware' => ['role' => 'admin']], function(){
+
+            //Admin routes
+            Route::get('/admin', 'AdminController@index')->name('admin.panel'); //funciona
+            Route::get('/admin/questions', 'QuestionsController@adminIndex')->name('admin.questions'); //funciona
+            Route::get('/admin/questions/create', 'QuestionsController@create'); //funciona
+            Route::post('/admin/questions', 'QuestionsController@store'); //funciona
+            Route::get('/admin/questions/{slug}/edit', 'QuestionsController@edit')->name('questions.edit'); //funciona
+            Route::patch('/admin/questions/{slug}', 'QuestionsController@patch')->name('questions.patch');
+
+        //});
 
 });
 

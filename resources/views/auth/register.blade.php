@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+@extends('public.layouts.app')
 
 @push('scripts')
     {{--<script src="{{ asset('js/validation.js') }}" defer></script>--}}

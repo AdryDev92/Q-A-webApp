@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Hashtag;
 use App\Http\Requests\CreateQuestionsRequest;
 use App\Http\Requests\QuestionAjaxFormRequest;
-use App\Http\Requests\UpdateQuestionRequest;
 use App\Question;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -26,7 +26,8 @@ class QuestionsController extends Controller
     }
 
     public function adminIndex(Request $request){
-        $questions = Question::all();
+
+        $questions = Question::all()->paginate(10);
         return view('admin.questions.profile', [
             'questions' => $request->user()->adminQuestions(),
             'question' => $questions]);
@@ -106,23 +107,47 @@ class QuestionsController extends Controller
         return view('public.questions.edit', ['question' => $question]);
     }
 
-    public function update(UpdateQuestionRequest $request, $id)
+
+    public function patch(CreateQuestionsRequest $request, $id)
     {
-        $path = $request->path();
-        $question = Question::findOrFail($id);
-        if (strpos($path, 'info')) {
-            $data = array_filter($request->all());
-            $question->fill($data);
-        }
-        if (strpos($path, 'otros-datos')) {
-            $data = $request->all();
-            $question->fill($data);
+        $question = Question::where('id', $id)->first();
+        $question->fill([
+            'title' => $request->input('title'),
+            'slug' => str_slug($request->input('title')),
+            'category' => $request->input('category'),
+            'content' => $request->input('content'),
+        ]);
+        $hashtags = explode(", ", \request('tags'));
+
+        $newTags = [];
+        foreach ($hashtags as $hashtag) {
+            $hashtag = Tag::firstOrCreate([
+                'name' => $hashtag,
+                'slug' => str_slug($hashtag)
+            ]);
+            array_push($newTags, $hashtag);
         }
 
-        $question->save();
-        return redirect()
-            ->back()
-            ->with('exito', 'Datos actualizados');
+        $question->hashtags()->sync(collect($newTags)->pluck('id')->toArray());
+        $question->update();
+        return redirect('admin/questions');
+    }
+
+
+
+    public function update($id, $nick, CreateQuestionsRequest $request)
+    {
+        $user = User::where('nick', $nick)->first();
+
+        $question = Question::find($id);
+        $question->fill([
+            'title' => $request->input('title'),
+            'category' => $request->input('category'),
+            'content' => $request->input('content'),
+        ]);
+
+        $question->update();
+        return redirect('/questions/{id}');
     }
 
     /**
