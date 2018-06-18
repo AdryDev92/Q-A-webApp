@@ -35,8 +35,8 @@ Route::group(['middleware' => 'auth'], function(){
     /*Route::get('/questions/edit/{slug}', 'QuestionsController@edit');
     Route::get('/questions/update/{slug}', 'QuestionsController@update');*/
 
-    Route::get('/questions/{slug}/edit/info', 'QuestionsController@edit')->name('question.edit');
-    Route::patch('/questions/{slug}/edit', 'QuestionsController@update');
+    Route::get('/questions/edit/{slug}', 'QuestionsController@edit')->name('question.edit');
+    Route::patch('/questions//update/{slug}', 'QuestionsController@update');
 
     //Delete
     Route::delete('/questions/destroy/{id}', 'QuestionsController@destroy')->name("deleteElement"); //completado

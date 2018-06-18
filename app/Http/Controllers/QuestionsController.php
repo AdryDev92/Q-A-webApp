@@ -101,9 +101,9 @@ class QuestionsController extends Controller
      * @param  \App\Question $questions
      * @return void
      */
-    public function edit($id)
+    public function edit($slug)
     {
-        $question = DB::table('questions')->where('id', $id)->first();
+        $question = DB::table('questions')->where('slug', $slug)->first();
         return view('public.questions.edit', ['question' => $question]);
     }
 
@@ -121,7 +121,7 @@ class QuestionsController extends Controller
 
         $newTags = [];
         foreach ($hashtags as $hashtag) {
-            $hashtag = Tag::firstOrCreate([
+            $hashtag = Hashtag::firstOrCreate([
                 'name' => $hashtag,
                 'slug' => str_slug($hashtag)
             ]);

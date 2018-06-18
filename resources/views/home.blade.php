@@ -3,7 +3,7 @@
 @section('content')
     <div class="container justify-content-center">
         <h1>
-            Bienvenido al lugar donde encontrarás respuesta a todas tus preguntas
+            Bienvenido a QA Web. La web donde encontrarás respuestas a todas tus preguntas.
         </h1>
     </div>
 

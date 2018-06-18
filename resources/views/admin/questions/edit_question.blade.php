@@ -1,11 +1,11 @@
-@extends('public.layouts.app')
+@extends('admin.layouts.app')
 
 @push('scripts')
     <script src="{{ asset('js/validation.js') }}" defer></script>
 @endpush
 
 @section('content')
-    <form action="/questions/create" id="formulario" method="post">
+    <form action="/questions/update/{{$question->slug}}" id="formulario" method="post">
         {{ csrf_field() }}
 
         <div class="container">
@@ -74,7 +74,7 @@
             <div class="form-group">
                 <label for="content">Escribe tu pregunta</label>
                 <textarea name="content" id="content"
-                          placeholder="Máximo de 1000 caracteres" class="form-control" rows="10"></textarea>
+                          placeholder="Máximo de 500 caracteres" class="form-control" rows="10"></textarea>
                 @if($errors->has('content'))
                     @foreach($errors->get('content') as $message)
                         <div class="alert alert-danger" role="alert">

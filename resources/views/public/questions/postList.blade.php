@@ -17,7 +17,7 @@
                 {{$question->created_at}}
             </td>
             <td>
-                <a class="" href="{{route('question.edit',$question->slug)}}">
+                <a class="" href="/questions/update/{{$question->slug}}">
                     <i class="far fa-edit fa-2x text-info"></i>
                 </a>
             </td>
@@ -33,6 +33,6 @@
             </td>
         </tr>
     @endforeach
-    @include('admin.partials.modal_delete')
+    @include('public.partials.modal_delete')
     </tbody>
 </table>

@@ -14,7 +14,7 @@
                 @include('public.partials.aside_nav_bar')
             </div>
             <div class="col-9">
-                @include('users.postList')
+                @include('public.questions.postList')
             </div>
         </div>
     </div>
