@@ -25,13 +25,13 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate::define('canEdit', function ($user, $topic) {
+        Gate::define('canEdit', function ($user, $question) {
             // Si el usuario es admin o autor puedo editar
             if($user->role == 'admin' || $user->role == 'author') {
                 return true;
             }
             // Si el user_id del post es el id del usuario puede editar
-            if( $user->id == $topic->user_id){
+            if( $user->id == $question->user_id){
                 return true;
             }
             // Si no, no puede editar

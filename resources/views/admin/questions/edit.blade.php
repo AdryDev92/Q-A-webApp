@@ -1,20 +1,22 @@
-@extends('public.layouts.app')
+@extends('admin.layouts.app')
+
 @push('scripts')
     <script src="{{ asset('js/validation.js') }}" defer></script>
-    <script src="{{asset('js/update.js')}}"></script>
 @endpush
 
 @section('content')
 
     <div class="container">
+        <h1>Editando: {{$question->title}}</h1>
+        <span class="col-1"></span>
         <div class="row">
-            {{--<span class="col-1"></span>--}}
             <div class="col-3">
-                @include('public.partials.aside_nav_bar')
+                @include('admin.partials.aside_nav_bar')
             </div>
-            <div class="col-9">
 
-                <form action="{{route('question.patch',['slug' => $question->slug]) }}" id="formulario" method="post">
+            <div class="col-9">
+                <form action="{{route('admin.question.edit',['slug' => $question->slug]) }}" id="formulario"
+                      method="post">
                     {{ csrf_field() }}
                     {{ method_field('PATCH') }}
 
@@ -24,9 +26,9 @@
                                 <label for="title">Título</label>
                                 <input type="text" placeholder="{{$question->title}}" id="title" name="title"
                                        class="form-control">
-                                @if($errors->has('content'))
+                                @if($errors->has('title'))
                                     <div>
-                                        @foreach($errors->get('content') as $message)
+                                        @foreach($errors->get('title') as $message)
                                             <div class="alert alert-danger" role="alert">
                                                 {{ $message }}
                                             </div>
@@ -38,6 +40,7 @@
                                 @endif
                             </div>
                         </div>
+
 
                         <div class="form-group row">
                             <div class="form-group col-md-6">
@@ -95,13 +98,10 @@
                                 <div></div>
                             @endif
                         </div>
-                        <button type="submit" class="btn btn-primary">{{ __('Actualizar pregunta') }}</button>
+                        <button type="submit" class="btn btn-primary btn-lg">Actualizar</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 @endsection
-
-
-

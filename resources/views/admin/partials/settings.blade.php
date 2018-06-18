@@ -8,10 +8,10 @@
         <span class="col-1"></span>
         <div class="row">
             <div class="col-3">
-                @include('users.aside_nav_bar')
+                @include('admin.partials.aside_nav_bar')
             </div>
 
-            <div class="col-8 card p-3">
+            <div class="col-8 card bg-dark p-3">
                     @include('admin.partials.personal_data')
             </div>
         </div>

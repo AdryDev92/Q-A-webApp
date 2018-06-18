@@ -20,7 +20,7 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function(){
 
     //Create
-    Route::get('/questions/create','QuestionsController@create')->name("crearPregunta"); //completado
+    Route::get('/questions/create','QuestionsController@createPublic')->name("crearPregunta"); //completado
     Route::post('/questions/create', 'QuestionsController@store'); //completado
     Route::post('/questions/{slug}/comments', 'CommentsController@store');
 
@@ -36,14 +36,14 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/questions/update/{slug}', 'QuestionsController@update');*/
 
     Route::get('/questions/edit/{slug}', 'QuestionsController@edit')->name('question.edit');
-    Route::patch('/questions//update/{slug}', 'QuestionsController@update');
+    Route::patch('/questions/update/{slug}', 'QuestionsController@patch')->name('question.patch');
 
     //Delete
     Route::delete('/questions/destroy/{id}', 'QuestionsController@destroy')->name("deleteElement"); //completado
 
     //Profile
     Route::get('/user/{user}', 'UserController@show')->name("profile");
-    Route::get ('/user/edit/{user}', 'UserController@edit')->name("settings");
+    Route::get ('/user/edit/{user}', 'UserController@editPublic')->name("settingsPublic");
     Route::patch('user/edit/{user}/update', 'UserController@update');
 
         //Route::group(['middleware' => ['role' => 'admin']], function(){
@@ -53,8 +53,9 @@ Route::group(['middleware' => 'auth'], function(){
             Route::get('/admin/questions', 'QuestionsController@adminIndex')->name('admin.questions'); //funciona
             Route::get('/admin/questions/create', 'QuestionsController@create'); //funciona
             Route::post('/admin/questions', 'QuestionsController@store'); //funciona
-            Route::get('/admin/questions/{slug}/edit', 'QuestionsController@edit')->name('questions.edit'); //funciona
-            Route::patch('/admin/questions/{slug}', 'QuestionsController@patch')->name('questions.patch');
+            Route::get ('/admin/user/edit/{user}', 'UserController@editAdmin')->name("settings");
+            Route::get('/admin/questions/{slug}/edit', 'QuestionsController@edit')->name('admin.question.edit'); //funciona
+            Route::patch('/admin/questions/{slug}', 'QuestionsController@patch')->name('admin.question.patch');
 
         //});
 

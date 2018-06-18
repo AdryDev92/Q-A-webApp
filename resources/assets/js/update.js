@@ -51,7 +51,7 @@ $('.modal-footer').on('click', '.edit', function() {
                     "<td>" + data.category + "</td>" +
                     "<td>" + data.content + "</td>" +
                     "<td class='text-center'>" +
-                    " <button class='edit-modal btn btn-info' data-id='" + data.id + "' data-title='" + data.title + "' data-category='" + data.category + "' data-content='" + data.content + "'>" +
+                    "<button class='edit-modal btn btn-info' data-id='" + data.id + "' data-title='" + data.title + "' data-category='" + data.category + "' data-content='" + data.content + "'>" +
                     "<i class='fa fa-pencil text-success'></i> Edit</button></td></tr>"
 
 

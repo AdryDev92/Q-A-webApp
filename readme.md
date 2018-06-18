@@ -4,7 +4,7 @@ Project powered by laravel about Q&A similar to stackoverflow
 
 ## Status
 
-![db](https://img.shields.io/badge/database-passing-brightgreen.svg) ![status](https://img.shields.io/badge/status-wip-brightgreen.svg) ![bs](https://img.shields.io/badge/version-0.2.6-brightgreen.svg) ![issues](https://img.shields.io/badge/issues-2-orange.svg) ![commits](https://img.shields.io/badge/commits-26-blue.svg)
+![db](https://img.shields.io/badge/database-passing-brightgreen.svg) ![status](https://img.shields.io/badge/status-wip-brightgreen.svg) ![bs](https://img.shields.io/badge/version-0.2.7-brightgreen.svg) ![issues](https://img.shields.io/badge/issues-2-orange.svg) ![commits](https://img.shields.io/badge/commits-27-blue.svg)
 
 ---
 
@@ -52,7 +52,7 @@ Type the next commands to install all necessary components:
 
 `npm install`
 
-`php artisan migrate`
+`php artisan migrate --seed`
 
 
 ## Features

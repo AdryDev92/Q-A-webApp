@@ -70,12 +70,16 @@ class UserController extends Controller
      * Display the current data about user from session
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit()
+    public function editAdmin()
     {
         return view('admin.partials.settings',
             array('user' => Auth::user())
         );
+    }
 
+    public function editPublic(){
+        return view('public.partials.settings',
+            array('user' => Auth::user()));
     }
 
     /**

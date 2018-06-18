@@ -27,7 +27,7 @@ class QuestionsController extends Controller
 
     public function adminIndex(Request $request){
 
-        $questions = Question::all()->paginate(10);
+        $questions = Question::all();
         return view('admin.questions.profile', [
             'questions' => $request->user()->adminQuestions(),
             'question' => $questions]);
@@ -41,6 +41,10 @@ class QuestionsController extends Controller
     public function create()
     {
         return view('admin.questions.create');
+    }
+
+    public function createPublic(){
+        return view('public.questions.create');
     }
 
 
@@ -104,7 +108,7 @@ class QuestionsController extends Controller
     public function edit($slug)
     {
         $question = DB::table('questions')->where('slug', $slug)->first();
-        return view('public.questions.edit', ['question' => $question]);
+        return view('admin.questions.edit', ['question' => $question]);
     }
 
 
@@ -135,19 +139,19 @@ class QuestionsController extends Controller
 
 
 
-    public function update($id, $nick, CreateQuestionsRequest $request)
+    public function update($slug, CreateQuestionsRequest $request)
     {
-        $user = User::where('nick', $nick)->first();
+        //$user = User::where('nick', $nick)->first();
 
-        $question = Question::find($id);
+        $question = Question::findOrFail($slug);
         $question->fill([
             'title' => $request->input('title'),
             'category' => $request->input('category'),
-            'content' => $request->input('content'),
+            'content' => $request->input('content')
         ]);
 
         $question->update();
-        return redirect('/questions/{id}');
+        return redirect('/questions/{slug}');
     }
 
     /**

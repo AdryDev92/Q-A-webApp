@@ -5,7 +5,7 @@
         <div class="form-group">
             <label for="content">Escribe tu respuesta</label>
             <textarea name="content" id="content"
-                      placeholder="Máximo de 500 caracteres" class="form-control" rows="5"></textarea>
+                      placeholder="Responde a esta pregunta..." class="form-control" rows="5"></textarea>
             @if($errors->has('content'))
                 @foreach($errors->get('content') as $message)
                     <div class="alert alert-danger" role="alert">

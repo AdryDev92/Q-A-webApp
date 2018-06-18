@@ -17,7 +17,7 @@
                 {{$question->created_at}}
             </td>
             <td>
-                <a class="" href="{{route('question.edit',$question->slug)}}">
+                <a class="" href="{{route('admin.question.edit',$question->slug)}}">
                     <i class="far fa-edit fa-2x text-info"></i>
                 </a>
             </td>
