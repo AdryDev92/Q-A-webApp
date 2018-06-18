@@ -4,7 +4,7 @@ Project powered by laravel about Q&A similar to stackoverflow
 
 ## Status
 
-![db](https://img.shields.io/badge/database-passing-brightgreen.svg) ![status](https://img.shields.io/badge/status-wip-brightgreen.svg) ![bs](https://img.shields.io/badge/version-0.0.9-brightgreen.svg) ![issues](https://img.shields.io/badge/issues-3-orange.svg) ![commits](https://img.shields.io/badge/commits-14-blue.svg)
+![db](https://img.shields.io/badge/database-passing-brightgreen.svg) ![status](https://img.shields.io/badge/status-wip-brightgreen.svg) ![bs](https://img.shields.io/badge/version-0.2.6-brightgreen.svg) ![issues](https://img.shields.io/badge/issues-2-orange.svg) ![commits](https://img.shields.io/badge/commits-26-blue.svg)
 
 ---
 
@@ -15,7 +15,7 @@ To launch the project, you need next components:
 - [PHP](http://php.net/manual/es/install.php)
 - [Composer](https://getcomposer.org/download/) 
 - [Node.js](https://nodejs.org/es/)
-- [VitualBox](https://www.virtualbox.org/wiki/Downloads)
+- [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
 ---
 In terminal, go the folder where you will host the porject and use:
